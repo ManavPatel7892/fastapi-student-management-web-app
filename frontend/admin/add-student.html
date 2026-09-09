@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Add Student · Aurora Admin</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+    />
+    <style>
+      /* ========================= ALERT MESSAGE ========================= */
+      .alert {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 14px 18px;
+        margin-bottom: 1rem;
+        border-radius: 10px;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 1.5;
+        border: 1px solid transparent;
+        display: block;
+      } /* Hide alert */
+      .alert.d-none {
+        display: none !important;
+      } /* Error */
+      .alert-danger {
+        background: #fff1f2;
+        color: #be123c;
+        border-color: #fecdd3;
+      } /* Success */
+      .alert-success {
+        background: #ecfdf5;
+        color: #047857;
+        border-color: #a7f3d0;
+      } /* Optional warning */
+      .alert-warning {
+        background: #fffbeb;
+        color: #b45309;
+        border-color: #fde68a;
+      } /* Optional info */
+      .alert-info {
+        background: #eff6ff;
+        color: #1d4ed8;
+        border-color: #bfdbfe;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ========================= SIDEBAR ========================== -->
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">AURORA <span>ADMIN</span></div>
+      <div class="nav-label">Management</div>
+      <a class="nav-link" href="index.html">
+        <i class="bi bi-grid-1x2-fill"></i> Dashboard
+      </a>
+      <a class="nav-link" href="students.html">
+        <i class="bi bi-people-fill"></i> Students
+      </a>
+      <a class="nav-link active" href="add-student.html">
+        <i class="bi bi-person-plus-fill"></i> Add Student
+      </a>
+      <div class="nav-label">Account</div>
+      <a class="nav-link" href="../index.html">
+        <i class="bi bi-box-arrow-up-right"></i> View Website
+      </a>
+      <a class="nav-link" href="../login.html" data-logout>
+        <i class="bi bi-box-arrow-right"></i> Logout
+      </a>
+      <div class="admin">
+        <div class="avatar">AD</div>
+        <div>
+          <b class="admin-name">Admin User</b>
+          <div class="muted admin-role">System Manager</div>
+        </div>
+      </div>
+    </aside>
+    <!-- ========================= MAIN CONTENT ========================== -->
+    <main class="main">
+      <!-- TOP HEADER -->
+      <header class="top">
+        <div>
+          <button class="btn light mobile" id="menu">
+            <i class="bi bi-list"></i>
+          </button>
+          <b>Add Student</b>
+          <div class="crumb">Aurora Student Suite / Add Student</div>
+        </div>
+        <div class="avatar">AD</div>
+      </header>
+      <!-- ========================= CONTENT ========================== -->
+      <div class="content">
+        <!-- PAGE TITLE -->
+        <div class="toolbar">
+          <div>
+            <h1>Create Student Profile</h1>
+            <div class="muted">Register a new learner in the directory.</div>
+          </div>
+          <a href="students.html" class="btn light"> Back </a>
+        </div>
+        <!-- ========================= ALERT BOX ========================== -->
+        <div id="alertBox" class="alert d-none" role="alert"></div>
+        <!-- ========================= STUDENT FORM ========================== -->
+        <div class="card">
+          <form id="addForm">
+            <div class="form-grid">
+              <!-- Student ID -->
+              <div class="field">
+                <label> Student ID * </label>
+                <input class="input" id="student_id" required />
+              </div>
+              <!-- First Name -->
+              <div class="field">
+                <label> First Name * </label>
+                <input class="input" id="first_name" required />
+              </div>
+              <!-- Last Name -->
+              <div class="field">
+                <label> Last Name * </label>
+                <input class="input" id="last_name" required />
+              </div>
+              <!-- Email -->
+              <div class="field">
+                <label> Email * </label>
+                <input class="input" id="email" type="email" required />
+              </div>
+              <!-- Phone -->
+              <div class="field">
+                <label> Phone </label> <input class="input" id="phone" />
+              </div>
+              <!-- Date of Birth -->
+              <div class="field">
+                <label> Date of Birth </label>
+                <input class="input" id="date_of_birth" type="date" />
+              </div>
+              <!-- Gender -->
+              <div class="field">
+                <label> Gender </label>
+                <select class="select" id="gender">
+                  <option value="">Select</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
+                  <option value="Prefer not to say">Prefer not to say</option>
+                </select>
+              </div>
+              <!-- Course -->
+              <div class="field">
+                <label> Course </label>
+                <select class="select" id="course">
+                  <option value="">Select</option>
+                  <option value="Computer Science">Computer Science</option>
+                  <option value="Python">Python</option>
+                  <option value="FastAPI">FastAPI</option>
+                  <option value="AIML">AIML</option>
+                  <option value="Data Science">Data Science</option>
+                  <option value="Data & Analytics">Data & Analytics</option>
+                </select>
+              </div>
+              <!-- Department -->
+              <div class="field">
+                <label> Department </label>
+                <select class="select" id="department">
+                  <option value="">Select</option>
+                  <option value="Engineering">Engineering</option>
+                  <option value="Business">Business</option>
+                  <option value="Arts & Design">Arts & Design</option>
+                  <option value="Science">Science</option>
+                </select>
+              </div>
+              <!-- Year -->
+              <div class="field">
+                <label> Year </label>
+                <select class="select" id="year">
+                  <option value="">Select</option>
+                  <option value="1st Year">1st Year</option>
+                  <option value="2nd Year">2nd Year</option>
+                  <option value="3rd Year">3rd Year</option>
+                  <option value="4th Year">4th Year</option>
+                </select>
+              </div>
+              <!-- Semester -->
+              <div class="field">
+                <label> Semester </label>
+                <select class="select" id="semester">
+                  <option value="">Select</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                </select>
+              </div>
+              <!-- Admission Date -->
+              <div class="field">
+                <label> Admission Date </label>
+                <input class="input" id="admission_date" type="date" />
+              </div>
+              <!-- Address -->
+              <div class="field" style="grid-column: 1/-1">
+                <label> Address </label> <input class="input" id="address" />
+              </div>
+              <!-- City -->
+              <div class="field">
+                <label> City </label> <input class="input" id="city" />
+              </div>
+              <!-- State -->
+              <div class="field">
+                <label> State </label> <input class="input" id="state" />
+              </div>
+              <!-- Postal Code -->
+              <div class="field">
+                <label> Postal Code </label>
+                <input class="input" id="postal_code" />
+              </div>
+              <!-- Profile Image -->
+              <div class="field">
+                <label> Profile Image </label>
+                <input
+                  class="input"
+                  id="profile_image"
+                  type="file"
+                  accept="image/*"
+                />
+              </div>
+            </div>
+            <!-- ========================= FORM ACTIONS ========================== -->
+            <div class="actions">
+              <a href="students.html" class="btn light"> Cancel </a>
+              <button type="submit" class="btn primary" id="btnSave">
+                Save Student
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </main>
+    <!-- ========================= JAVASCRIPT ========================== -->
+    <script src="../assets/js/api.js"></script>
+    <script src="assets/js/app.js"></script>
+    <script>
+      const form = document.getElementById("addForm"); const alertBox = document.getElementById("alertBox"); const btn = document.getElementById("btnSave"); /* * Show alert message * * type: * danger = error * success = success * warning = warning * info = information */ function show(msg, type = "danger") { alertBox.className = "alert"; alertBox.classList.add("alert-" + type); alertBox.textContent = msg; alertBox.classList.remove("d-none"); alertBox.style.display = "block"; // Scroll to alert alertBox.scrollIntoView({ behavior: "smooth", block: "center" }); } /* * Hide alert */ function hideAlert() { alertBox.textContent = ""; alertBox.className = "alert d-none"; alertBox.style.display = "none"; } /* * Get error message from API */ function getErrorMessage(err) { // Normal JavaScript Error if (err && err.message) { return err.message; } // FastAPI detail if (err && err.detail) { return err.detail; } // If API returns response data if (err && err.data) { if (typeof err.data === "string") { return err.data; } if (err.data.detail) { return err.data.detail; } if (err.data.message) { return err.data.message; } } return "Failed to create student"; } /* * Form Submit */ form.addEventListener("submit", async (e) => { e.preventDefault(); // Hide old message hideAlert(); // Disable button btn.disabled = true; btn.textContent = "Saving…"; /* * Student payload */ const payload = { student_id: document .getElementById("student_id") .value .trim(), first_name: document .getElementById("first_name") .value .trim(), last_name: document .getElementById("last_name") .value .trim(), email: document .getElementById("email") .value .trim(), phone: document .getElementById("phone") .value .trim() || null, date_of_birth: document .getElementById("date_of_birth") .value || null, gender: document .getElementById("gender") .value || null, address: document .getElementById("address") .value .trim() || null, city: document .getElementById("city") .value .trim() || null, state: document .getElementById("state") .value .trim() || null, postal_code: document .getElementById("postal_code") .value .trim() || null, course: document .getElementById("course") .value || null, department: document .getElementById("department") .value || null, year: document .getElementById("year") .value || null, semester: document .getElementById("semester") .value || null, admission_date: document .getElementById("admission_date") .value || null }; try { /* * Create student */ const student = await createStudent(payload); /* * Upload profile image */ const fileInput = document.getElementById("profile_image"); if (fileInput.files.length > 0) { await uploadStudentImage( student.id, fileInput.files[0] ); } /* * Show success message */ show( "Student created successfully!", "success" ); /* * Redirect after success */ setTimeout(() => { location.href = "students.html"; }, 1200); } catch (err) { /* * Get proper API error */ const message = getErrorMessage(err); /* * Show error */ show( message, "danger" ); /* * Enable button again */ btn.disabled = false; btn.textContent = "Save Student"; } });
+    </script>
+  </body>
+</html>

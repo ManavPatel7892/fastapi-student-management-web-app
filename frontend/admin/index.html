@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Dashboard · Aurora Admin</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+    />
+    <style>
+      /* Recent students table */
+      .recent-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        font-size: 0.92rem;
+      }
+
+      .recent-table thead th {
+        background: #f4f2ff;
+        color: #3d348b;
+        font-weight: 600;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        padding: 0.85rem 1rem;
+        border-bottom: 2px solid #e0dbf5;
+        white-space: nowrap;
+      }
+
+      .recent-table tbody tr {
+        transition: background 0.15s ease;
+      }
+
+      .recent-table tbody tr:hover {
+        background: #faf9ff;
+      }
+
+      .recent-table tbody td {
+        padding: 0.9rem 1rem;
+        border-bottom: 1px solid #eee;
+        vertical-align: middle;
+      }
+
+      .recent-table tbody tr:last-child td {
+        border-bottom: none;
+      }
+
+      .student {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .student .avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.8rem;
+        font-weight: 700;
+        flex-shrink: 0;
+        overflow: hidden;
+      }
+
+      .student .avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      .student b {
+        display: block;
+        font-weight: 600;
+        color: #1a1a2e;
+      }
+
+      .student .muted {
+        font-size: 0.8rem;
+        color: #888;
+      }
+
+      .course-badge {
+        display: inline-block;
+        padding: 0.2rem 0.55rem;
+        border-radius: 20px;
+        background: #f0edff;
+        color: #5b4bdb;
+        font-size: 0.78rem;
+        font-weight: 500;
+      }
+
+      .btn-icon {
+        width: 34px;
+        height: 34px;
+        border-radius: 8px;
+        border: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+        cursor: pointer;
+        transition:
+          transform 0.15s,
+          box-shadow 0.15s,
+          background 0.15s,
+          color 0.15s;
+        text-decoration: none;
+      }
+
+      .btn-icon:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+      }
+
+      .btn-view {
+        background: #e8f4fd;
+        color: #0984e3;
+      }
+
+      .btn-view:hover {
+        background: #0984e3;
+        color: #fff;
+      }
+    </style>
+  </head>
+
+  <body>
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">AURORA <span>ADMIN</span></div>
+      <div class="nav-label">Management</div>
+      <a class="nav-link active" href="index.html"
+        ><i class="bi bi-grid-1x2-fill"></i>Dashboard</a
+      >
+      <a class="nav-link" href="students.html"
+        ><i class="bi bi-people-fill"></i>Students</a
+      >
+      <a class="nav-link" href="add-student.html"
+        ><i class="bi bi-person-plus-fill"></i>Add Student</a
+      >
+      <div class="nav-label">Account</div>
+      <a class="nav-link" href="../index.html"
+        ><i class="bi bi-box-arrow-up-right"></i>View Website</a
+      >
+      <a class="nav-link" href="../login.html" data-logout
+        ><i class="bi bi-box-arrow-right"></i>Logout</a
+      >
+      <div class="admin">
+        <div class="avatar">AD</div>
+        <div>
+          <b class="admin-name">Admin User</b>
+          <div class="muted admin-role">System Manager</div>
+        </div>
+      </div>
+    </aside>
+    <main class="main">
+      <header class="top">
+        <div>
+          <button class="btn light mobile" id="menu">
+            <i class="bi bi-list"></i>
+          </button>
+          <b>Dashboard</b>
+          <div class="crumb">Aurora Student Suite / Dashboard</div>
+        </div>
+        <div class="avatar">AD</div>
+      </header>
+      <div class="content">
+        <div class="toolbar">
+          <div>
+            <h1 id="greeting">Welcome back.</h1>
+            <div class="muted">
+              A clear view of student records and campus activity.
+            </div>
+          </div>
+          <!-- <a href="add-student.html" class="btn primary"
+            ><i class="bi bi-plus-lg"></i>Add Student</a
+          > -->
+        </div>
+
+        <div class="stats">
+          <div class="card stat">
+            <div>
+              <div class="muted">Total students</div>
+              <div class="value" id="statTotal">—</div>
+            </div>
+            <div class="icon"><i class="bi bi-people-fill"></i></div>
+          </div>
+          <div class="card stat">
+            <div>
+              <div class="muted">Active courses</div>
+              <div class="value" id="statCourses">—</div>
+            </div>
+            <div class="icon"><i class="bi bi-journal-bookmark-fill"></i></div>
+          </div>
+          <div class="card stat">
+            <div>
+              <div class="muted">Departments</div>
+              <div class="value" id="statDepts">—</div>
+            </div>
+            <div class="icon"><i class="bi bi-building"></i></div>
+          </div>
+          <div class="card stat">
+            <div>
+              <div class="muted">This month</div>
+              <div class="value" id="statMonth">—</div>
+            </div>
+            <div class="icon"><i class="bi bi-calendar-check"></i></div>
+          </div>
+        </div>
+
+        <div
+          class="card"
+          style="margin-top: 1.5rem; padding: 0; overflow: hidden"
+        >
+          <div
+            class="toolbar"
+            style="
+              margin: 0;
+              padding: 1rem 1.25rem;
+              border-bottom: 1px solid #eee;
+            "
+          >
+            <h2 style="margin: 0; font-size: 1.15rem">Recent students</h2>
+            <a href="students.html" class="btn light">View all</a>
+          </div>
+          <div class="table-wrap">
+            <table class="recent-table">
+              <thead>
+                <tr style="text-align: justify">
+                  <th>Student</th>
+                  <th>ID</th>
+                  <th>Course</th>
+                  <th>Year</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="recentBody">
+                <tr>
+                  <td colspan="5" class="muted" style="padding: 1.5rem">
+                    Loading…
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="../assets/js/api.js"></script>
+    <script src="assets/js/app.js"></script>
+    <script>
+      function getAvatarHtml(s) {
+        const init =
+          typeof initials === "function"
+            ? initials(s.first_name, s.last_name)
+            : ((s.first_name || "")[0] || "") + ((s.last_name || "")[0] || "");
+
+        if (s.profile_image) {
+          const base =
+            typeof API_BASE !== "undefined"
+              ? API_BASE
+              : "http://127.0.0.1:8000";
+          const src = s.profile_image.startsWith("http")
+            ? s.profile_image
+            : base + s.profile_image;
+          return `<img src="${src}" alt="" onerror="this.remove();">`;
+        }
+        return init;
+      }
+
+      (async () => {
+        const user = getUser();
+        const hour = new Date().getHours();
+        const greet =
+          hour < 12
+            ? "Good morning"
+            : hour < 17
+              ? "Good afternoon"
+              : "Good evening";
+        document.getElementById("greeting").textContent =
+          `${greet}, ${user.full_name?.split(" ")[0] || "Admin"}.`;
+
+        try {
+          // Fetch more rows so course/dept/month stats are more accurate
+          const { total, students } = await listStudents("", 0, 100);
+          document.getElementById("statTotal").textContent = total;
+
+          const courses = new Set(
+            students.map((s) => s.course).filter(Boolean),
+          );
+          const depts = new Set(
+            students.map((s) => s.department).filter(Boolean),
+          );
+          document.getElementById("statCourses").textContent =
+            courses.size || "0";
+          document.getElementById("statDepts").textContent = depts.size || "0";
+
+          const now = new Date();
+          const thisMonth = students.filter((s) => {
+            if (!s.created_at) return false;
+            const d = new Date(s.created_at);
+            return (
+              d.getMonth() === now.getMonth() &&
+              d.getFullYear() === now.getFullYear()
+            );
+          }).length;
+          document.getElementById("statMonth").textContent = thisMonth;
+
+          const tbody = document.getElementById("recentBody");
+          const recent = students.slice(0, 5);
+
+          if (!recent.length) {
+            tbody.innerHTML =
+              '<tr><td colspan="5" class="muted" style="padding:1.5rem">No students yet. <a href="add-student.html">Add one</a></td></tr>';
+            return;
+          }
+
+          tbody.innerHTML = recent
+            .map((s) => {
+              const name = `${s.first_name || ""} ${s.last_name || ""}`.trim();
+              return `
+                    <tr>
+                        <td>
+                            <div class="student">
+                                <div class="avatar">${getAvatarHtml(s)}</div>
+                                <div>
+                                    <b>${name}</b>
+                                    <div class="muted">${s.email || ""}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td><strong>${s.student_id}</strong></td>
+                        <td>${s.course ? `<span class="course-badge">${s.course}</span>` : "—"}</td>
+                        <td>${s.year || "—"}</td>
+                        <td>
+                            <a class="btn light" href="student-details.html?id=${s.id}">View</a>
+                        </td>
+                    </tr>`;
+            })
+            .join("");
+        } catch (err) {
+          document.getElementById("recentBody").innerHTML =
+            `<tr><td colspan="5" class="muted" style="padding:1.5rem">Error: ${err.message}</td></tr>`;
+        }
+      })();
+    </script>
+  </body>
+</html>

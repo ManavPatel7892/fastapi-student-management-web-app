@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Register · Aurora Suite</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <main class="min-vh-100 d-flex align-items-center py-5"
+        style="background:radial-gradient(circle at 80% 20%,#ddd5ff,transparent 35%),var(--cream)">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="text-center mb-4"><a class="navbar-brand" href="index.html"><span
+                                class="brand-mark">A</span>Aurora<span>Suite</span></a></div>
+                    <div class="feature-card p-4 p-md-5">
+                        <div class="eyebrow">GET STARTED</div>
+                        <h2>Create your campus account.</h2>
+                        <p class="text-secondary">Set up a workspace for your academic team.</p>
+                        <div id="alertBox" class="alert d-none mt-3" role="alert"></div>
+                        <form id="registerForm">
+                            <div class="row g-3 mt-1">
+                                <div class="col-12">
+                                    <label class="form-label">Full name</label>
+                                    <input class="form-control form-control-lg" id="full_name" required minlength="2">
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Institution email</label>
+                                    <input type="email" class="form-control form-control-lg" id="email" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Password</label>
+                                    <input type="password" class="form-control form-control-lg" id="password"
+                                        minlength="6" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Confirm password</label>
+                                    <input type="password" class="form-control form-control-lg" id="confirm_password"
+                                        minlength="6" required>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Role</label>
+                                    <select class="form-select form-select-lg" id="role">
+                                        <option value="user">User</option>
+                                        <option value="staff">Staff</option>
+                                        <option value="admin">Administrator</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-lg w-100 rounded-pill mt-4" id="btnReg">
+                                Create account
+                            </button>
+                        </form>
+                        <p class="text-center mt-4 mb-0 text-secondary">Already registered? <a href="login.html">Sign
+                                in</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="assets/js/api.js"></script>
+    <script>
+        const form = document.getElementById("registerForm");
+        const alertBox = document.getElementById("alertBox");
+        const btn = document.getElementById("btnReg");
+
+        function showAlert(msg, type = "danger") {
+            alertBox.className = `alert alert-${type} mt-3`;
+            alertBox.textContent = msg;
+            alertBox.classList.remove("d-none");
+        }
+
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const password = document.getElementById("password").value;
+            const confirm = document.getElementById("confirm_password").value;
+            if (password !== confirm) {
+                showAlert("Passwords do not match");
+                return;
+            }
+            btn.disabled = true;
+            btn.textContent = "Creating…";
+            alertBox.classList.add("d-none");
+            try {
+                await registerUser({
+                    full_name: document.getElementById("full_name").value.trim(),
+                    email: document.getElementById("email").value.trim(),
+                    password,
+                    confirm_password: confirm,
+                    role: document.getElementById("role").value
+                });
+                showAlert("Account created successfully. Redirecting to sign in…", "success");
+                setTimeout(() => location.href = "login.html", 1500);
+            } catch (err) {
+                showAlert(err.message || "Registration failed");
+                btn.disabled = false;
+                btn.textContent = "Create account";
+            }
+        });
+    </script>
+</body>
+
+</html>
